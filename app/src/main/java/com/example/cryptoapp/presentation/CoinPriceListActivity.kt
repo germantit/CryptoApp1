@@ -6,7 +6,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.cryptoapp.R
-import com.example.cryptoapp.adapters.CoinInfoAdapter
+import com.example.cryptoapp.presentation.adapters.CoinInfoAdapter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_coin_price_list.*
 
@@ -24,22 +24,26 @@ class CoinPriceListActivity : AppCompatActivity() {
             ViewModelProvider.AndroidViewModelFactory(application)
         )[CoinViewModel::class.java]
         viewModel.priceList.observe(this, Observer {
-            adapter.coinInfoList = it
+            adapter.setData(it)
         })
         swipeRefresh.setOnRefreshListener {
             viewModel.loadData()
             swipeRefresh.isRefreshing = false
         }
         viewModel.errors.observe(this) {
-            val snakbar = Snackbar
-                .make(constraintLayout, "Oшибка загрузки данных", Snackbar.LENGTH_INDEFINITE)
-                .setAction("Повторить") {
-                    viewModel.loadData()
-                }
-            snakbar.show()
+            showSnakbar()
         }
         viewModel.loading.observe(this) {
             pbLoading.isVisible = it
         }
+    }
+
+    private fun showSnakbar() {
+        val snakbar = Snackbar
+            .make(constraintLayout, "Ошибка загрузки данных", Snackbar.LENGTH_INDEFINITE)
+            .setAction("Повторить") {
+                viewModel.loadData()
+            }
+        snakbar.show()
     }
 }

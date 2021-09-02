@@ -4,9 +4,10 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.example.cryptoapp.api.ApiFactory
-import com.example.cryptoapp.database.AppDatabase
-import com.example.cryptoapp.mappers.PriceListFromRawData
+import com.example.cryptoapp.data.api.ApiFactory
+import com.example.cryptoapp.data.api.database.AppDatabase
+import com.example.cryptoapp.data.api.repositories.LoadDataFromApi
+import com.example.cryptoapp.mappers.PriceListFromRawDataMapper
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
@@ -14,7 +15,6 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
 
     private val db = AppDatabase.getInstance(application)
     private val compositeDisposable = CompositeDisposable()
-    private val mapper = PriceListFromRawData()
     val errors = MutableLiveData<String>()
     val loading = MutableLiveData<Boolean>()
 
@@ -25,10 +25,7 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun loadData() {
-        val disposable = ApiFactory.apiService.getTopCoinsInfo(limit = 10)
-                .map { it.data?.map { it.coinInfo?.name }?.joinToString(",") }
-                .flatMap { ApiFactory.apiService.getFullPriceList(fSyms = it) }
-                .map { mapper.getPriceListFromRowData(it) }
+        val disposable = LoadDataFromApi().load()
                 .doOnSubscribe { loading.postValue(true) }
                 .doOnTerminate { loading.postValue(false) }
                 .subscribeOn(Schedulers.io())

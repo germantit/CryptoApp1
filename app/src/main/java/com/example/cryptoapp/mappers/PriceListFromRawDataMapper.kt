@@ -1,12 +1,12 @@
 package com.example.cryptoapp.mappers
 
-import com.example.cryptoapp.pojo.CoinPriceInfo
-import com.example.cryptoapp.pojo.CoinPriceInfoRawData
+import com.example.cryptoapp.domain.models.entities.CoinPriceInfo
+import com.example.cryptoapp.domain.models.CoinPriceInfoRawData
 import com.google.gson.Gson
 
-class PriceListFromRawData {
+class PriceListFromRawDataMapper {
 
-    fun getPriceListFromRowData(
+    fun map(
         coinPriceInfoRawData: CoinPriceInfoRawData
     ): List<CoinPriceInfo> {
         val result = ArrayList<CoinPriceInfo>()

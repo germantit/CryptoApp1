@@ -3,7 +3,7 @@ package com.example.cryptoapp.domain.models.entities
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.cryptoapp.data.api.ApiFactory.BASE_IMAGE_URL
-import com.example.cryptoapp.domain.models.utils.convertTimestampToTime
+import com.example.cryptoapp.domain.utils.convertTimestampToTime
 
 import com.google.gson.annotations.SerializedName
 

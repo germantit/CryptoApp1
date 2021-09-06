@@ -1,4 +1,4 @@
-package com.example.cryptoapp.mappers
+package com.example.cryptoapp.data.mappers
 
 import com.example.cryptoapp.domain.models.entities.CoinPriceInfo
 import com.example.cryptoapp.domain.models.CoinPriceInfoRawData

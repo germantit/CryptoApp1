@@ -10,13 +10,9 @@ import com.example.cryptoapp.domain.models.entities.CoinPriceInfo
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_coin_info.view.*
 
-class CoinInfoAdapter(private val context: Context) : RecyclerView.Adapter<CoinInfoAdapter.CoinInfoViewHolder>() {
+class CoinInfoAdapter : RecyclerView.Adapter<CoinInfoAdapter.CoinInfoViewHolder>() {
 
     private var coinInfoList: List<CoinPriceInfo> = listOf()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinInfoViewHolder {
         val view =
@@ -32,8 +28,8 @@ class CoinInfoAdapter(private val context: Context) : RecyclerView.Adapter<CoinI
     override fun getItemCount() = coinInfoList.size
 
     inner class CoinInfoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val symbolsTemplate = context.resources.getString(R.string.symbols_template)
-        private val lastUpdateTemplate = context.resources.getString(R.string.last_update_template)
+        private val symbolsTemplate = itemView.resources.getString(R.string.symbols_template)
+        private val lastUpdateTemplate = itemView.resources.getString(R.string.last_update_template)
         fun bind(coin: CoinPriceInfo) {
             with(coin) {
                 itemView.tvSymbols.text = String.format(symbolsTemplate, fromsymbol, tosymbol)
@@ -44,8 +40,8 @@ class CoinInfoAdapter(private val context: Context) : RecyclerView.Adapter<CoinI
         }
     }
 
-    fun setData(info : List<CoinPriceInfo>) : List<CoinPriceInfo> {
+    fun setData(info : List<CoinPriceInfo>){
         coinInfoList = info
-        return coinInfoList
+        notifyDataSetChanged()
     }
 }

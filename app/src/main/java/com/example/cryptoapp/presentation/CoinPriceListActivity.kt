@@ -17,7 +17,7 @@ class CoinPriceListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coin_price_list)
-        val adapter = CoinInfoAdapter(this)
+        val adapter = CoinInfoAdapter()
         rvCoinPriceList.adapter = adapter
         viewModel = ViewModelProvider(
             this,
@@ -40,8 +40,8 @@ class CoinPriceListActivity : AppCompatActivity() {
 
     private fun showSnakbar() {
         val snakbar = Snackbar
-            .make(constraintLayout, "Ошибка загрузки данных", Snackbar.LENGTH_INDEFINITE)
-            .setAction("Повторить") {
+            .make(constraintLayout, getString(R.string.error_load_data), Snackbar.LENGTH_INDEFINITE)
+            .setAction(getString(R.string.repeat)) {
                 viewModel.loadData()
             }
         snakbar.show()

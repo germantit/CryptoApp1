@@ -4,10 +4,9 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.example.cryptoapp.data.api.ApiFactory
-import com.example.cryptoapp.data.api.database.AppDatabase
-import com.example.cryptoapp.data.api.repositories.LoadDataFromApi
-import com.example.cryptoapp.mappers.PriceListFromRawDataMapper
+import com.example.cryptoapp.data.database.AppDatabase
+import com.example.cryptoapp.domain.Interactors.CoinListInteractor
+import com.example.cryptoapp.domain.models.entities.CoinPriceInfo
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
@@ -25,7 +24,7 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun loadData() {
-        val disposable = LoadDataFromApi().load()
+        val disposable = CoinListInteractor().load()
                 .doOnSubscribe { loading.postValue(true) }
                 .doOnTerminate { loading.postValue(false) }
                 .subscribeOn(Schedulers.io())

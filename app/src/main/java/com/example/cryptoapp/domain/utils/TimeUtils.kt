@@ -1,4 +1,4 @@
-package com.example.cryptoapp.domain.models.utils
+package com.example.cryptoapp.domain.utils
 
 import java.sql.Timestamp
 import java.text.SimpleDateFormat

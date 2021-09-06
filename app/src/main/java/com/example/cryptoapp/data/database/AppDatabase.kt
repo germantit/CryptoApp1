@@ -1,6 +1,6 @@
-package com.example.cryptoapp.data.api.database
+package com.example.cryptoapp.data.database
 
-import android.content.Context
+import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -13,12 +13,13 @@ abstract class AppDatabase: RoomDatabase() {
         private const val DB_NAME = "main.db"
         private val LOCK = Any()
 
-        fun getInstance(context: Context): AppDatabase {
-            kotlin.synchronized(LOCK) {
+        fun getInstance(context: Application): AppDatabase {
+            synchronized(LOCK) {
                 db?.let { return it }
                 val instance = Room.databaseBuilder(context,
                         AppDatabase::class.java,
-                        DB_NAME).build()
+                        DB_NAME
+                ).build()
                 db = instance
                 return instance
             }

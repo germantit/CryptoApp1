@@ -1,11 +1,11 @@
-package com.example.cryptoapp.data.api.repositories
+package com.example.cryptoapp.domain.Interactors
 
 import com.example.cryptoapp.data.api.ApiFactory
 import com.example.cryptoapp.domain.models.entities.CoinPriceInfo
-import com.example.cryptoapp.mappers.PriceListFromRawDataMapper
+import com.example.cryptoapp.data.mappers.PriceListFromRawDataMapper
 import io.reactivex.Single
 
-class LoadDataFromApi {
+class CoinListInteractor {
     fun load() : Single<List<CoinPriceInfo>> {
         return ApiFactory.apiService.getTopCoinsInfo(limit = 10)
             .map { it.data?.map { it.coinInfo?.name }?.joinToString(",") }

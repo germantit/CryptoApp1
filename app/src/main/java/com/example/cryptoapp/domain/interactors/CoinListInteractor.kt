@@ -1,4 +1,4 @@
-package com.example.cryptoapp.domain.Interactors
+package com.example.cryptoapp.domain.interactors
 
 import com.example.cryptoapp.data.api.ApiFactory
 import com.example.cryptoapp.domain.models.entities.CoinPriceInfo

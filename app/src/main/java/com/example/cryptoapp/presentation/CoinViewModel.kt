@@ -5,8 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.cryptoapp.data.database.AppDatabase
-import com.example.cryptoapp.domain.Interactors.CoinListInteractor
-import com.example.cryptoapp.domain.models.entities.CoinPriceInfo
+import com.example.cryptoapp.domain.interactors.CoinListInteractor
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
